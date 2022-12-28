@@ -1,0 +1,131 @@
+//
+//  ContentView.swift
+//  akeygen
+//
+//  Created by Jimmy Hough Jr on 12/28/22.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    @State var fullName = ""
+    @State var key = ""
+    @State var endBytes =  [39, 86, 26, 72, 13, 91, 23];
+
+    var body: some View {
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundColor(.accentColor)
+            Text("Full Name")
+            TextField("", text: $fullName)
+            endBytesView
+            Button {
+                generateKeyFromName()
+            } label: {
+                Text("Generate Key")
+            }
+            TextField("key", text: $key)
+        }
+        .padding()
+    }
+    
+    var endBytesView: some View {
+        VStack {
+            Text("End Bytes")
+
+            HStack {
+                ForEach(endBytes, id:\.self) { byte in
+                    Text("\(byte)").padding()
+                }
+            }
+        }
+    }
+    
+    func validate(_ name:String) -> Bool {
+        true
+    }
+    
+    func encode(_ name:String) -> Data {
+        guard !name.isEmpty else {
+            return Data()
+        }
+        return fullName.data(using: .utf8) ?? Data()
+    }
+    
+    func generateKeyFromName() {
+        /*
+         var ret = "";
+            name = name.toUpperCase();
+            var nameRecalc = name;
+            
+            if (name.length >= 15){
+                console.log("Name too long");
+                return "#";
+            }
+            for (var i = 0; i < name.length; i++){
+                var a = name.charAt(i);
+                if ((a < 'A' || a > 'Z') && a != "_" && (a < '0' || a > '9')){
+                    console.log("Invalid character, use only A to Z uppercase");
+                    return "#";
+                }
+            }
+            
+            var encName = "";
+            var writtenBytes = 0;
+            for (var i = 0; i < name.length; i++){
+                encName += (70 - (26 - (name.charCodeAt(i) - 'A'.charCodeAt(0)))).toString();
+                writtenBytes++;
+            }
+            encName += (EndBytes[Math.floor(Math.random() * EndBytes.length)]).toString();
+            writtenBytes++;
+            console.log("Encoded name as: " + encName);
+            
+            var fullNameStr = encName;
+            
+            while (writtenBytes != 15){
+                fullNameStr += (10+Math.floor(Math.random() * 89)).toString();
+                writtenBytes++;
+            }
+            
+            var checksumFullName = 0;
+            for (var i = 0; i < fullNameStr.length; i++){
+                checksumFullName += (fullNameStr.charCodeAt(i) - '0'.charCodeAt(0));
+            }
+            var checksumName = 0;
+            for (var i = 0; i < encName.length; i++){
+                checksumName += (encName.charCodeAt(i) - '0'.charCodeAt(0));
+            }
+            checksumName %= 100;
+            
+            console.log("checksum of full name: " + checksumFullName);
+            var checkSumPart1 = checksumFullName + Math.floor(Math.random() * (999-checksumFullName));
+            var checkSumPart2 = checkSumPart1 - checksumFullName;
+            
+            var retStr = "";
+            retStr += ('000'+checkSumPart1).slice(-3);
+            retStr = retStr.split("").reverse().join("");
+            retStr += fullNameStr;
+            retStr += ('000'+checkSumPart2).slice(-3);
+            retStr += ('00'+checksumName).slice(-2);
+
+            retStr = retStr.slice(0, 6) + "-" + retStr.slice(6);
+            retStr = retStr.slice(0, 15) + "-" + retStr.slice(15);
+            retStr = retStr.slice(0, 23) + "-" + retStr.slice(23);
+            retStr = retStr.slice(0, 31) + "-" + retStr.slice(31);
+            retStr = retStr.slice(0, 36) + "-" + retStr.slice(36);
+
+            return retStr;
+         */
+        if validate(fullName) {
+            key = String(data:encode(fullName),
+                         encoding:.utf8) ?? ""
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
