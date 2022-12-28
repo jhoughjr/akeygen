@@ -68,7 +68,23 @@ struct ContentView: View {
     
     func validate(_ name:String) -> Bool {
         log += "validating \"\(name)\"\n"
-        return true
+        return validateLength(name) && validateCharset(name)
+    }
+    
+    func validateLength(_ name:String) -> Bool {
+        log += "validating length of\"\(name)\"\n"
+
+        return name.count < 15
+    }
+    
+    func validateCharset(_ name:String) -> Bool {
+        log += "validating charset of\"\(name)\"\n"
+
+        let r = 65...90
+        
+        return name.allSatisfy { c in
+            r.contains(Int(c.asciiValue!))
+        }
     }
     
     func encode(_ name:String) -> Data {
