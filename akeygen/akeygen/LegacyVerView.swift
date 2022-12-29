@@ -10,11 +10,14 @@ import SwiftUI
 struct LegacyVerView: View {
     
     var body: some View {
-        HostingWindowFinder { window in
-                    window?.standardWindowButton(.zoomButton)?.isEnabled = false //this disables the green zoom button
-                }
-    Text("For users that use the verion 05-04 you need a key that is actually hard coded and you were\n supposed to ask dev0 for it but since the server is non-functional\n here is the code:")
-            .font(.callout)
+        
+        ZStack {
+            HostingWindowFinder { window in
+                        window?.standardWindowButton(.zoomButton)?.isEnabled = false //this disables the green zoom button
+                    }
+            Text("For users that use the verion 05-04 you need a key that\n is actually hard coded and you were\n supposed to ask dev0\n for it but since the server is non-functional\n here is the code:")
+                .font(.custom("Minecraft", size: 15))
+        }
         GroupBox(label:
                     Label {
             Text("Keys:")
@@ -47,6 +50,7 @@ struct LegacyVerView: View {
                     Image(systemName: "arrow.right.doc.on.clipboard")
                 }
             }
+            
             
         }
     }
