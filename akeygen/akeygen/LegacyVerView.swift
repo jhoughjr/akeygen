@@ -26,9 +26,22 @@ struct LegacyVerView: View {
             VStack {
                 Text("Unlock Key")
                     .font(.system(size: 25,weight: .thin, design: .monospaced))
+                Text("47984-25158-78941")
+                    .font(.system(size: 15,weight: .thin, design: .monospaced))
                 Button(action: {
                     NSPasteboard.general.clearContents()
-                    NSPasteboard.general.setString("HELLO", forType: .string)
+                    NSPasteboard.general.setString("47984-25158-78941", forType: .string)
+                }) {
+                    Text("Copy to clipboard")
+                    Image(systemName: "arrow.right.doc.on.clipboard")
+                }
+                Text("Cheat Key")
+                    .font(.system(size: 25,weight: .thin, design: .monospaced))
+                Text("2259403-191299")
+                    .font(.system(size: 15,weight: .thin, design: .monospaced))
+                Button(action: {
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString("2259403-191299", forType: .string)
                 }) {
                     Text("Copy to clipboard")
                     Image(systemName: "arrow.right.doc.on.clipboard")
