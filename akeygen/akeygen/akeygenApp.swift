@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct akeygenApp: App {
+    @State var log: String = ""
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+//        Window("Log", id: "logs") {
+//            @Binding var log:String
+//            LogUI(log: $log) TODO: IMPLEMENT THIS SOMEHOW
+//        }
     }
 }
