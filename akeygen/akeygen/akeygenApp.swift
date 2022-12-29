@@ -20,12 +20,6 @@ struct akeygenApp: App {
 //        }
         Window("OldVer", id: "legacy") {
             LegacyVerView()
-                .onAppear {
-                    DispatchQueue.main.async {
-                        
-                    }
-                    
-                }
         }
     }
 }
