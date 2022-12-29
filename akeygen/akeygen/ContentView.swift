@@ -56,6 +56,7 @@ struct ContentView: View {
             HStack {
                 ForEach(endBytes, id:\.self) { byte in
                     Text("\(byte)").padding()
+                        .font(.custom("Minecraft-Bold", size: 20))
                 }
             }
         }
