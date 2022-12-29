@@ -11,28 +11,18 @@ struct ContentView: View {
     @State var fullName = ""
     @State var key = ""
     @State var endBytes =  [39, 86, 26, 72, 13, 91, 23];
-    @State var log = ""
+    @State var log: String = ""
     
-    var logView: some View {
-        VStack {
-            HStack {
-                Text("Log")
-                Button {
-                    log = ""
-                } label: {
-                    Text("clear")
-                }
-
-            }
-            TextEditor(text: $log)
-        }
-    }
+    @Environment (\.openWindow) var OpenWindow
     
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
+                .onTapGesture {
+//                    OpenWindow(id: "logs", value: log) TODO: IMPLEMENT THIS SOMEHOW
+                }
             nameView
             endBytesView
             Button {
@@ -42,7 +32,7 @@ struct ContentView: View {
             }
             TextField("key", text: $key)
             
-            logView
+            LogUI(log: $log)
         }
         .padding()
     }
