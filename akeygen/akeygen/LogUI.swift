@@ -13,7 +13,7 @@ struct LogUI: View {
         VStack {
             VStack {
                 Text("Log")
-                    .font(.caption)
+                    .font(.custom("Minecraft", size: 20))
                 HStack {
                     Button {
                         log = ""

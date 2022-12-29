@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		45C38212295D95DE005EE226 /* LogUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C38211295D95DE005EE226 /* LogUI.swift */; };
 		45C38216295DAE0D005EE226 /* LegacyVerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C38215295DAE0D005EE226 /* LegacyVerView.swift */; };
+		45C3821A295E0F2C005EE226 /* Minecraft.otf in Resources */ = {isa = PBXBuildFile; fileRef = 45C38218295E0F2B005EE226 /* Minecraft.otf */; };
+		45C3821B295E0F2C005EE226 /* Minecraft-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 45C38219295E0F2C005EE226 /* Minecraft-Bold.otf */; };
 		D8C8DD9D295CE3AD00B1DD9E /* akeygenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8DD9C295CE3AD00B1DD9E /* akeygenApp.swift */; };
 		D8C8DD9F295CE3AD00B1DD9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8DD9E295CE3AD00B1DD9E /* ContentView.swift */; };
 		D8C8DDA1295CE3AE00B1DD9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8C8DDA0295CE3AE00B1DD9E /* Assets.xcassets */; };
@@ -38,6 +40,9 @@
 /* Begin PBXFileReference section */
 		45C38211295D95DE005EE226 /* LogUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogUI.swift; sourceTree = "<group>"; };
 		45C38215295DAE0D005EE226 /* LegacyVerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyVerView.swift; sourceTree = "<group>"; };
+		45C38218295E0F2B005EE226 /* Minecraft.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Minecraft.otf; sourceTree = "<group>"; };
+		45C38219295E0F2C005EE226 /* Minecraft-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Minecraft-Bold.otf"; sourceTree = "<group>"; };
+		45C3821C295E0F51005EE226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D8C8DD99295CE3AD00B1DD9E /* akeygen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = akeygen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8C8DD9C295CE3AD00B1DD9E /* akeygenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = akeygenApp.swift; sourceTree = "<group>"; };
 		D8C8DD9E295CE3AD00B1DD9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45C38217295E0F0D005EE226 /* Extra Assets */ = {
+			isa = PBXGroup;
+			children = (
+				45C38219295E0F2C005EE226 /* Minecraft-Bold.otf */,
+				45C38218295E0F2B005EE226 /* Minecraft.otf */,
+			);
+			path = "Extra Assets";
+			sourceTree = "<group>";
+		};
 		D8C8DD90295CE3AD00B1DD9E = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +113,8 @@
 		D8C8DD9B295CE3AD00B1DD9E /* akeygen */ = {
 			isa = PBXGroup;
 			children = (
+				45C3821C295E0F51005EE226 /* Info.plist */,
+				45C38217295E0F0D005EE226 /* Extra Assets */,
 				D8C8DD9C295CE3AD00B1DD9E /* akeygenApp.swift */,
 				D8C8DD9E295CE3AD00B1DD9E /* ContentView.swift */,
 				45C38211295D95DE005EE226 /* LogUI.swift */,
@@ -239,6 +255,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C3821B295E0F2C005EE226 /* Minecraft-Bold.otf in Resources */,
+				45C3821A295E0F2C005EE226 /* Minecraft.otf in Resources */,
 				D8C8DDA4295CE3AE00B1DD9E /* Preview Assets.xcassets in Resources */,
 				D8C8DDA1295CE3AE00B1DD9E /* Assets.xcassets in Resources */,
 			);
@@ -433,6 +451,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = akeygen/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -461,6 +480,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = akeygen/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
