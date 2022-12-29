@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import AppKit
 @main
 struct akeygenApp: App {
     @State var log: String = ""
@@ -18,5 +18,14 @@ struct akeygenApp: App {
 //            @Binding var log:String
 //            LogUI(log: $log) TODO: IMPLEMENT THIS SOMEHOW
 //        }
+        Window("OldVer", id: "legacy") {
+            LegacyVerView()
+                .onAppear {
+                    DispatchQueue.main.async {
+                        
+                    }
+                    
+                }
+        }
     }
 }

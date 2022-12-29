@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		45C38212295D95DE005EE226 /* LogUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C38211295D95DE005EE226 /* LogUI.swift */; };
+		45C38216295DAE0D005EE226 /* LegacyVerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C38215295DAE0D005EE226 /* LegacyVerView.swift */; };
 		D8C8DD9D295CE3AD00B1DD9E /* akeygenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8DD9C295CE3AD00B1DD9E /* akeygenApp.swift */; };
 		D8C8DD9F295CE3AD00B1DD9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8DD9E295CE3AD00B1DD9E /* ContentView.swift */; };
 		D8C8DDA1295CE3AE00B1DD9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8C8DDA0295CE3AE00B1DD9E /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		45C38211295D95DE005EE226 /* LogUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogUI.swift; sourceTree = "<group>"; };
+		45C38215295DAE0D005EE226 /* LegacyVerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyVerView.swift; sourceTree = "<group>"; };
 		D8C8DD99295CE3AD00B1DD9E /* akeygen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = akeygen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8C8DD9C295CE3AD00B1DD9E /* akeygenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = akeygenApp.swift; sourceTree = "<group>"; };
 		D8C8DD9E295CE3AD00B1DD9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				D8C8DD9C295CE3AD00B1DD9E /* akeygenApp.swift */,
 				D8C8DD9E295CE3AD00B1DD9E /* ContentView.swift */,
 				45C38211295D95DE005EE226 /* LogUI.swift */,
+				45C38215295DAE0D005EE226 /* LegacyVerView.swift */,
 				D8C8DDA0295CE3AE00B1DD9E /* Assets.xcassets */,
 				D8C8DDA5295CE3AE00B1DD9E /* akeygen.entitlements */,
 				D8C8DDA2295CE3AE00B1DD9E /* Preview Content */,
@@ -265,6 +268,7 @@
 				D8C8DD9F295CE3AD00B1DD9E /* ContentView.swift in Sources */,
 				45C38212295D95DE005EE226 /* LogUI.swift in Sources */,
 				D8C8DD9D295CE3AD00B1DD9E /* akeygenApp.swift in Sources */,
+				45C38216295DAE0D005EE226 /* LegacyVerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

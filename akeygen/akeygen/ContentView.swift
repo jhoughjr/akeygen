@@ -17,6 +17,11 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            Button {
+                OpenWindow(id: "legacy")
+            } label: {
+                Text("Legacy")
+            }
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)

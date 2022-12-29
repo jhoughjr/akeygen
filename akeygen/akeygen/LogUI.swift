@@ -14,10 +14,20 @@ struct LogUI: View {
             VStack {
                 Text("Log")
                     .font(.caption)
-                Button {
-                    log = ""
-                } label: {
-                    Label(title: {Text("DestroyLog")}, icon: {Image(systemName: "eraser")})
+                HStack {
+                    Button {
+                        log = ""
+                    } label: {
+                        Label(title: {Text("DestroyLog")}, icon: {Image(systemName: "eraser")})
+                    }
+                    Divider()
+                        .frame(height: 10)
+                    Button {
+                        NSPasteboard.general.clearContents()
+                        NSPasteboard.general.setString(log, forType: .string)
+                    } label: {
+                        Label(title: {Text("Copy Log")}, icon: {Image(systemName: "arrow.right.doc.on.clipboard")})
+                    }
                 }
 
             }
