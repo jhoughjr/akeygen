@@ -16,9 +16,12 @@ struct LegacyVerView: View {
     Text("For users that use the verion 05-04 you need a key that is actually hard coded and you were\n supposed to ask dev0 for it but since the server is non-functional\n here is the code:")
             .font(.callout)
         GroupBox(label:
-                        Label("Keys:", systemImage: "key.radiowaves.forward")
-                            .foregroundColor(.black)
-                            .symbolRenderingMode(.hierarchical)
+                    Label {
+            Text("Keys:")
+                .foregroundColor(.primary)
+        } icon: {
+            Image(systemName: "key.radiowaves.forward")
+        }
         ) {
             VStack {
                 Text("Unlock Key")
