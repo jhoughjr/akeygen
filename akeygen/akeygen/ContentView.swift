@@ -11,14 +11,29 @@ struct ContentView: View {
     @State var fullName = ""
     @State var key = ""
     @State var endBytes =  [39, 86, 26, 72, 13, 91, 23];
+    @State var log = ""
+    
+    var logView: some View {
+        VStack {
+            HStack {
+                Text("Log")
+                Button {
+                    log = ""
+                } label: {
+                    Text("clear")
+                }
 
+            }
+            TextEditor(text: $log)
+        }
+    }
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
-            Text("Full Name")
-            TextField("", text: $fullName)
+            nameView
             endBytesView
             Button {
                 generateKeyFromName()
@@ -26,8 +41,17 @@ struct ContentView: View {
                 Text("Generate Key")
             }
             TextField("key", text: $key)
+            
+            logView
         }
         .padding()
+    }
+    
+    var nameView: some View {
+        VStack {
+            Text("Full Name")
+            TextField("", text: $fullName)
+        }
     }
     
     var endBytesView: some View {
@@ -43,14 +67,42 @@ struct ContentView: View {
     }
     
     func validate(_ name:String) -> Bool {
-        true
+        log += "validating \"\(name)\"\n"
+        return validateLength(name) && validateCharset(name)
+    }
+    
+    func validateLength(_ name:String) -> Bool {
+        log += "validating length of\"\(name)\"\n"
+
+        return name.count < 15
+    }
+    
+    func validateCharset(_ name:String) -> Bool {
+        log += "validating charset of\"\(name)\"\n"
+
+        let r = 65...90
+        
+        return name.allSatisfy { c in
+            r.contains(Int(c.asciiValue!))
+        }
     }
     
     func encode(_ name:String) -> Data {
+        log += "encoding \"\(name)\"\n"
+
         guard !name.isEmpty else {
+            log += "Name can't be empty. returning empty data.\n"
+
             return Data()
         }
-        return fullName.data(using: .utf8) ?? Data()
+        
+        if let d = fullName.data(using: .utf8) {
+            log += "encoded \"\(d)\"\n"
+            return d
+        } else{
+            log += "encoding \"\(name)\" failed. returning empty data\n"
+            return Data()
+        }
     }
     
     func generateKeyFromName() {
@@ -117,6 +169,8 @@ struct ContentView: View {
 
             return retStr;
          */
+        log += "generating key for \"\(fullName)\" with end bytes \(endBytes.map({" \($0) "}))\n"
+
         if validate(fullName) {
             key = String(data:encode(fullName),
                          encoding:.utf8) ?? ""
