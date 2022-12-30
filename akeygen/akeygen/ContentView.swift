@@ -138,10 +138,13 @@ struct ContentView: View {
             print("Invalid character, use only A to Z uppercase")
             return "#"
         }
-        var encName:String
-        var temp:DynamicProperty
-        var writtenBytes:Int
+        var encName:String = ""
+        var writtenBytes:Int = 0
         for i in 0 ... length {
+            let mickey = name.utf16
+            encName += String(70 - (26 - Int(Float(mickey[mickey.index(mickey.startIndex, offsetBy: i)])) + 65))
+            print(encName)
+            writtenBytes += 1
         }
         return ret
     }
