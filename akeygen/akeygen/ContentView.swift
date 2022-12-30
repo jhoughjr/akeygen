@@ -26,7 +26,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
                 .onTapGesture {
-//                    OpenWindow(id: "logs", value: log) TODO: IMPLEMENT THIS SOMEHOW
+//                    OpenWindow(id: "logs") TODO: IMPLEMENT THIS SOMEHOW
                 }
             nameView
             endBytesView
