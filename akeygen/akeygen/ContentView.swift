@@ -133,8 +133,8 @@ struct ContentView: View {
             return "#"
         }
         var length:Int = name.count - 1
-        let CharSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-        if name.rangeOfCharacter(from: CharSet.inverted) != nil {
+        let ValidCharSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        if name.rangeOfCharacter(from: ValidCharSet.inverted) != nil {
             print("Invalid character, use only A to Z uppercase")
             return "#"
         }
