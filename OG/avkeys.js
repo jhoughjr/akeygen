@@ -37,7 +37,7 @@ function GenerateKeyForName(name){
         fullNameStr += (10+Math.floor(Math.random() * 89)).toString();
         writtenBytes++;
     }
-    
+    console.log("TEST... " + fullNameStr + " with written " + writtenBytes);    
     var checksumFullName = 0;
     for (var i = 0; i < fullNameStr.length; i++){
         checksumFullName += (fullNameStr.charCodeAt(i) - '0'.charCodeAt(0));

@@ -51,8 +51,8 @@ struct LegacyVerView: View {
                 }
             }
             
-            
         }
+        .padding()
     }
 }
 

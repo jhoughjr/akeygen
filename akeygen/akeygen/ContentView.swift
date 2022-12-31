@@ -140,12 +140,22 @@ struct ContentView: View {
         }
         var encName:String = ""
         var writtenBytes:Int = 0
-        for i in 0 ... length {
+        for i in 0 ... name.count - 1 {
             let mickey = name.utf16
             encName += String(70 - (26 - Int(Float(mickey[mickey.index(mickey.startIndex, offsetBy: i)])) + 65))
             print(encName)
             writtenBytes += 1
         }
+        encName += String(endBytes[Int.random(in: 1 ... endBytes.count)]) //Works thus far
+        writtenBytes += 1
+        log += "Name encoded as: \(encName)\n"
+        print("Name encoded as: \(encName)\n")
+        var fullNameStr = encName
+        while writtenBytes != 15 {
+            fullNameStr += String(10 + Int.random(in: 0 ... 89))
+            writtenBytes += 1
+        }
+        print("TEST... \(fullNameStr) with written \(writtenBytes)")
         return ret
     }
 }
