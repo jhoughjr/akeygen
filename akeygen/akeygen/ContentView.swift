@@ -141,7 +141,7 @@ struct ContentView: View {
         var encName:String = ""
         var writtenBytes:Int = 0
         for i in 0 ... name.count - 1 {
-            let mickey = name.utf16
+            var mickey = name.utf16
             encName += String(70 - (26 - Int(Float(mickey[mickey.index(mickey.startIndex, offsetBy: i)])) + 65))
             print(encName)
             writtenBytes += 1
@@ -149,14 +149,35 @@ struct ContentView: View {
         encName += String(endBytes[Int.random(in: 1 ... endBytes.count)]) //Works thus far
         writtenBytes += 1
         log += "Name encoded as: \(encName)\n"
-        print("Name encoded as: \(encName)\n")
         var fullNameStr = encName
         while writtenBytes != 15 {
             fullNameStr += String(10 + Int.random(in: 0 ... 89))
             writtenBytes += 1
         }
         print("TEST... \(fullNameStr) with written \(writtenBytes)")
+        var checksumFullName = 0
+        for i in 0 ... fullNameStr.count - 1 {
+            var mickey = fullNameStr.utf16
+            checksumFullName += Int(mickey[mickey.index(mickey.startIndex, offsetBy: i)]) - 48
+        }
+        var checksumName = 0
+        for i in 0 ... encName.count - 1 {
+            var mickey = encName.utf16
+            checksumName += Int(mickey[mickey.index(mickey.startIndex, offsetBy: i)]) - 48
+        }
+        checksumName = checksumName % 100
+        var templog = String(checksumFullName)
+        log += "Checksum of full name: \(templog)\n"
+        var checkSumPart1 = checksumFullName + Int.random(in: 0 ... (999 - checksumFullName))
+        var checkSumPart2 = checkSumPart1 - checksumFullName
+        var retStr: String = ""
+        retStr += String(checkSumPart1)
+        retStr = String(retStr.reversed())
+        retStr += fullNameStr
+        retStr += String(checkSumPart2)
+        retStr += String(checksumName)
         return ret
+        retStr = retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 3))
     }
 }
 

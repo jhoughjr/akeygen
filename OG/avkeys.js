@@ -51,7 +51,10 @@ function GenerateKeyForName(name){
     console.log("checksum of full name: " + checksumFullName);
     var checkSumPart1 = checksumFullName + Math.floor(Math.random() * (999-checksumFullName));
     var checkSumPart2 = checkSumPart1 - checksumFullName;
-    
+    console.log(checkSumPart1);
+    console.log(checkSumPart2);
+    var tmpCheck = ('000'+checkSumPart1).slice(-3);
+    console.log("The temp check is: " + tmpCheck);
     var retStr = "";
     retStr += ('000'+checkSumPart1).slice(-3);
     retStr = retStr.split("").reverse().join("");
