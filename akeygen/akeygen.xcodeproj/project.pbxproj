@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		45C38212295D95DE005EE226 /* LogUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C38211295D95DE005EE226 /* LogUI.swift */; };
 		45C38216295DAE0D005EE226 /* LegacyVerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C38215295DAE0D005EE226 /* LegacyVerView.swift */; };
-		45C3821A295E0F2C005EE226 /* Minecraft.otf in Resources */ = {isa = PBXBuildFile; fileRef = 45C38218295E0F2B005EE226 /* Minecraft.otf */; };
-		45C3821B295E0F2C005EE226 /* Minecraft-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 45C38219295E0F2C005EE226 /* Minecraft-Bold.otf */; };
+		45D8B3D12960F16300DF3549 /* Minecraft-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 45D8B3CF2960F16300DF3549 /* Minecraft-Bold.otf */; };
+		45D8B3D22960F16300DF3549 /* Minecraft.otf in Resources */ = {isa = PBXBuildFile; fileRef = 45D8B3D02960F16300DF3549 /* Minecraft.otf */; };
 		D8C8DD9D295CE3AD00B1DD9E /* akeygenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8DD9C295CE3AD00B1DD9E /* akeygenApp.swift */; };
 		D8C8DD9F295CE3AD00B1DD9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8DD9E295CE3AD00B1DD9E /* ContentView.swift */; };
 		D8C8DDA1295CE3AE00B1DD9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8C8DDA0295CE3AE00B1DD9E /* Assets.xcassets */; };
@@ -40,9 +40,8 @@
 /* Begin PBXFileReference section */
 		45C38211295D95DE005EE226 /* LogUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogUI.swift; sourceTree = "<group>"; };
 		45C38215295DAE0D005EE226 /* LegacyVerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyVerView.swift; sourceTree = "<group>"; };
-		45C38218295E0F2B005EE226 /* Minecraft.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Minecraft.otf; sourceTree = "<group>"; };
-		45C38219295E0F2C005EE226 /* Minecraft-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Minecraft-Bold.otf"; sourceTree = "<group>"; };
-		45C3821C295E0F51005EE226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		45D8B3CF2960F16300DF3549 /* Minecraft-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Minecraft-Bold.otf"; sourceTree = "<group>"; };
+		45D8B3D02960F16300DF3549 /* Minecraft.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Minecraft.otf; sourceTree = "<group>"; };
 		D8C8DD99295CE3AD00B1DD9E /* akeygen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = akeygen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8C8DD9C295CE3AD00B1DD9E /* akeygenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = akeygenApp.swift; sourceTree = "<group>"; };
 		D8C8DD9E295CE3AD00B1DD9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -84,8 +83,8 @@
 		45C38217295E0F0D005EE226 /* Extra Assets */ = {
 			isa = PBXGroup;
 			children = (
-				45C38219295E0F2C005EE226 /* Minecraft-Bold.otf */,
-				45C38218295E0F2B005EE226 /* Minecraft.otf */,
+				45D8B3CF2960F16300DF3549 /* Minecraft-Bold.otf */,
+				45D8B3D02960F16300DF3549 /* Minecraft.otf */,
 			);
 			path = "Extra Assets";
 			sourceTree = "<group>";
@@ -113,7 +112,6 @@
 		D8C8DD9B295CE3AD00B1DD9E /* akeygen */ = {
 			isa = PBXGroup;
 			children = (
-				45C3821C295E0F51005EE226 /* Info.plist */,
 				45C38217295E0F0D005EE226 /* Extra Assets */,
 				D8C8DD9C295CE3AD00B1DD9E /* akeygenApp.swift */,
 				D8C8DD9E295CE3AD00B1DD9E /* ContentView.swift */,
@@ -215,7 +213,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					D8C8DD98295CE3AD00B1DD9E = {
 						CreatedOnToolsVersion = 14.1;
@@ -255,10 +253,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45C3821B295E0F2C005EE226 /* Minecraft-Bold.otf in Resources */,
-				45C3821A295E0F2C005EE226 /* Minecraft.otf in Resources */,
 				D8C8DDA4295CE3AE00B1DD9E /* Preview Assets.xcassets in Resources */,
+				45D8B3D22960F16300DF3549 /* Minecraft.otf in Resources */,
 				D8C8DDA1295CE3AE00B1DD9E /* Assets.xcassets in Resources */,
+				45D8B3D12960F16300DF3549 /* Minecraft-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +354,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -416,6 +415,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -442,10 +442,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = akeygen/akeygen.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"akeygen/Preview Content\"";
 				DEVELOPMENT_TEAM = L9G66SYUL8;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -471,10 +473,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = akeygen/akeygen.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"akeygen/Preview Content\"";
 				DEVELOPMENT_TEAM = L9G66SYUL8;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -502,6 +506,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = L9G66SYUL8;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
@@ -522,6 +527,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = L9G66SYUL8;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
@@ -541,6 +547,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = L9G66SYUL8;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -559,6 +566,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = L9G66SYUL8;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
