@@ -176,8 +176,8 @@ struct ContentView: View {
         retStr += fullNameStr
         retStr += String(checkSumPart2)
         retStr += String(checksumName)
-        return ret
-        retStr = retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 3))
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 3))
+        return retStr
     }
 }
 
