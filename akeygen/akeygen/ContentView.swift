@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var key = ""
     @State var endBytes =  [39, 86, 26, 72, 13, 91, 23];
     @State var log: String = ""
-    
+    @State private var incompat = false
     @Environment (\.openWindow) var OpenWindow
     
     var body: some View {
@@ -31,10 +31,24 @@ struct ContentView: View {
             nameView
             endBytesView
             Button {
-                generateKeyFromName()
+                let isOK:Bool = validateDEV(fullName)
+                if isOK == true {
+                    key = generateKeyFromName()
+                } else if isOK == false {
+                    incompat = true
+                }
             } label: {
                 Text("Generate Key")
             }
+            .alert("Important message", isPresented: $incompat) {
+                Button("STOP", role: .cancel) {
+                    log += "ERR: PROCESS STOPPED BY FORCE\n"
+                }
+                Button("CONTINUE", role: .destructive) {
+                    log += "Continuing process\n"
+                    key = generateKeyFromName()
+                }
+                    }
             TextField("key", text: $key)
             
             LogUI(log: $log)
@@ -66,7 +80,17 @@ struct ContentView: View {
         log += "validating \"\(name)\"\n"
         return validateLength(name) && validateCharset(name)
     }
-    
+    func validateDEV(_ str:String) -> Bool {
+        log += "Checking for possible internal incompatibilities... "
+        let mickey = str.lowercased()
+        if mickey.prefix(3) == "dev" {
+           log += "ERROR!! ALERT DISPLAY\n"
+           return false
+        } else {
+            log += "OK! CONTINUE\n"
+            return true
+        }
+    }
     func validateLength(_ name:String) -> Bool {
         log += "validating length of\"\(name)\"\n"
 
@@ -118,76 +142,70 @@ struct ContentView: View {
         }
     }
     
-    func generateKeyFromName() {
-        /*
-         var ret = "";
-            name = name.toUpperCase();
-            var nameRecalc = name;
-            
-            if (name.length >= 15){
-                console.log("Name too long");
-                return "#";
-            }
-            for (var i = 0; i < name.length; i++){
-                var a = name.charAt(i);
-                if ((a < 'A' || a > 'Z') && a != "_" && (a < '0' || a > '9')){
-                    console.log("Invalid character, use only A to Z uppercase");
-                    return "#";
-                }
-            }
-            
-            var encName = "";
-            var writtenBytes = 0;
-            for (var i = 0; i < name.length; i++){
-                encName += (70 - (26 - (name.charCodeAt(i) - 'A'.charCodeAt(0)))).toString();
-                writtenBytes++;
-            }
-            encName += (EndBytes[Math.floor(Math.random() * EndBytes.length)]).toString();
-            writtenBytes++;
-            console.log("Encoded name as: " + encName);
-            
-            var fullNameStr = encName;
-            
-            while (writtenBytes != 15){
-                fullNameStr += (10+Math.floor(Math.random() * 89)).toString();
-                writtenBytes++;
-            }
-            
-            var checksumFullName = 0;
-            for (var i = 0; i < fullNameStr.length; i++){
-                checksumFullName += (fullNameStr.charCodeAt(i) - '0'.charCodeAt(0));
-            }
-            var checksumName = 0;
-            for (var i = 0; i < encName.length; i++){
-                checksumName += (encName.charCodeAt(i) - '0'.charCodeAt(0));
-            }
-            checksumName %= 100;
-            
-            console.log("checksum of full name: " + checksumFullName);
-            var checkSumPart1 = checksumFullName + Math.floor(Math.random() * (999-checksumFullName));
-            var checkSumPart2 = checkSumPart1 - checksumFullName;
-            
-            var retStr = "";
-            retStr += ('000'+checkSumPart1).slice(-3);
-            retStr = retStr.split("").reverse().join("");
-            retStr += fullNameStr;
-            retStr += ('000'+checkSumPart2).slice(-3);
-            retStr += ('00'+checksumName).slice(-2);
-
-            retStr = retStr.slice(0, 6) + "-" + retStr.slice(6);
-            retStr = retStr.slice(0, 15) + "-" + retStr.slice(15);
-            retStr = retStr.slice(0, 23) + "-" + retStr.slice(23);
-            retStr = retStr.slice(0, 31) + "-" + retStr.slice(31);
-            retStr = retStr.slice(0, 36) + "-" + retStr.slice(36);
-
-            return retStr;
-         */
+    func generateKeyFromName() -> String {
         log += "generating key for \"\(fullName)\" with end bytes \(endBytes.map({" \($0) "}))\n"
-
+        log += "===============START==OF==PROCESS==============\n"
         if validate(fullName) {
             key = String(data:encode(fullName),
                          encoding:.utf8) ?? ""
         }
+        let name:String = fullName.uppercased()
+        if name.count >= 15 {
+            print("Name too long")
+            return "#"
+        }
+        let ValidCharSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        if name.rangeOfCharacter(from: ValidCharSet.inverted) != nil {
+            print("Invalid character, use only A to Z uppercase")
+            return "#"
+        }
+        var encName:String = ""
+        var writtenBytes:Int = 0
+        for i in 0 ... name.count - 1 {
+            let mickey = name.utf16
+            encName += String(70 - (26 - Int(Float(mickey[mickey.index(mickey.startIndex, offsetBy: i)])) + 65))
+            print(encName)
+            writtenBytes += 1
+        }
+        encName += String(endBytes[Int.random(in: 0 ... endBytes.count - 1)]) //Works thus far
+        writtenBytes += 1
+        log += "Name encoded as: \(encName)\n"
+        var fullNameStr = encName
+        while writtenBytes != 15 {
+            fullNameStr += String(10 + Int.random(in: 0 ... 89))
+            writtenBytes += 1
+        }
+        print("TEST... \(fullNameStr) with written \(writtenBytes)")
+        var checksumFullName = 0
+        for i in 0 ... fullNameStr.count - 1 {
+            let mickey = fullNameStr.utf16
+            checksumFullName += Int(mickey[mickey.index(mickey.startIndex, offsetBy: i)]) - 48
+        }
+        var checksumName = 0
+        for i in 0 ... encName.count - 1 {
+            let mickey = encName.utf16
+            checksumName += Int(mickey[mickey.index(mickey.startIndex, offsetBy: i)]) - 48
+        }
+        checksumName = checksumName % 100
+        let templog = String(checksumFullName)
+        log += "Checksum of full name: \(templog)\n"
+        let checkSumPart1 = checksumFullName + Int.random(in: 0 ... (999 - checksumFullName))
+        let checkSumPart2 = checkSumPart1 - checksumFullName
+        var retStr: String = ""
+        retStr += String(checkSumPart1)
+        retStr = String(retStr.reversed())
+        retStr += fullNameStr
+        retStr += String(checkSumPart2)
+        retStr += String(checksumName)
+        print("Before the formating: \(retStr)")
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 6))
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 15))
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 23))
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 31))
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 36))
+        print("After the formating: \(retStr)")
+        log += "==============FINISH==OF==PROCESS==============\n"
+        return retStr
     }
 }
 
