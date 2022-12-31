@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var key = ""
     @State var endBytes =  [39, 86, 26, 72, 13, 91, 23];
     @State var log: String = ""
-    
+    @State private var incompat = false
     @Environment (\.openWindow) var OpenWindow
     
     var body: some View {
@@ -31,10 +31,24 @@ struct ContentView: View {
             nameView
             endBytesView
             Button {
-                generateKeyFromName()
+                let isOK:Bool = validateDEV(fullName)
+                if isOK == true {
+                    key = generateKeyFromName()
+                } else if isOK == false {
+                    incompat = true
+                }
             } label: {
                 Text("Generate Key")
             }
+            .alert("Important message", isPresented: $incompat) {
+                Button("STOP", role: .cancel) {
+                    log += "ERR: PROCESS STOPPED BY FORCE\n"
+                }
+                Button("CONTINUE", role: .destructive) {
+                    log += "Continuing process\n"
+                    key = generateKeyFromName()
+                }
+                    }
             TextField("key", text: $key)
             
             LogUI(log: $log)
@@ -66,7 +80,17 @@ struct ContentView: View {
         log += "validating \"\(name)\"\n"
         return validateLength(name) && validateCharset(name)
     }
-    
+    func validateDEV(_ str:String) -> Bool {
+        log += "Checking for possible internal incompatibilities... "
+        let mickey = str.lowercased()
+        if mickey.prefix(3) == "dev" {
+           log += "ERROR!! ALERT DISPLAY\n"
+           return false
+        } else {
+            log += "OK! CONTINUE\n"
+            return true
+        }
+    }
     func validateLength(_ name:String) -> Bool {
         log += "validating length of\"\(name)\"\n"
 
@@ -120,20 +144,16 @@ struct ContentView: View {
     
     func generateKeyFromName() -> String {
         log += "generating key for \"\(fullName)\" with end bytes \(endBytes.map({" \($0) "}))\n"
-        log += "===============START==OF==PROCESS=============="
-        log += "===============START==OF==PROCESS=============="
+        log += "===============START==OF==PROCESS==============\n"
         if validate(fullName) {
             key = String(data:encode(fullName),
                          encoding:.utf8) ?? ""
         }
-        var ret:String = ""
-        var name:String = fullName.uppercased()
-        var nameRecalc:String = name
+        let name:String = fullName.uppercased()
         if name.count >= 15 {
             print("Name too long")
             return "#"
         }
-        var length:Int = name.count - 1
         let ValidCharSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
         if name.rangeOfCharacter(from: ValidCharSet.inverted) != nil {
             print("Invalid character, use only A to Z uppercase")
@@ -142,12 +162,12 @@ struct ContentView: View {
         var encName:String = ""
         var writtenBytes:Int = 0
         for i in 0 ... name.count - 1 {
-            var mickey = name.utf16
+            let mickey = name.utf16
             encName += String(70 - (26 - Int(Float(mickey[mickey.index(mickey.startIndex, offsetBy: i)])) + 65))
             print(encName)
             writtenBytes += 1
         }
-        encName += String(endBytes[Int.random(in: 1 ... endBytes.count)]) //Works thus far
+        encName += String(endBytes[Int.random(in: 0 ... endBytes.count - 1)]) //Works thus far
         writtenBytes += 1
         log += "Name encoded as: \(encName)\n"
         var fullNameStr = encName
@@ -158,19 +178,19 @@ struct ContentView: View {
         print("TEST... \(fullNameStr) with written \(writtenBytes)")
         var checksumFullName = 0
         for i in 0 ... fullNameStr.count - 1 {
-            var mickey = fullNameStr.utf16
+            let mickey = fullNameStr.utf16
             checksumFullName += Int(mickey[mickey.index(mickey.startIndex, offsetBy: i)]) - 48
         }
         var checksumName = 0
         for i in 0 ... encName.count - 1 {
-            var mickey = encName.utf16
+            let mickey = encName.utf16
             checksumName += Int(mickey[mickey.index(mickey.startIndex, offsetBy: i)]) - 48
         }
         checksumName = checksumName % 100
-        var templog = String(checksumFullName)
+        let templog = String(checksumFullName)
         log += "Checksum of full name: \(templog)\n"
-        var checkSumPart1 = checksumFullName + Int.random(in: 0 ... (999 - checksumFullName))
-        var checkSumPart2 = checkSumPart1 - checksumFullName
+        let checkSumPart1 = checksumFullName + Int.random(in: 0 ... (999 - checksumFullName))
+        let checkSumPart2 = checkSumPart1 - checksumFullName
         var retStr: String = ""
         retStr += String(checkSumPart1)
         retStr = String(retStr.reversed())
@@ -184,7 +204,7 @@ struct ContentView: View {
         retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 31))
         retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 36))
         print("After the formating: \(retStr)")
-        log += "==============FINISH==OF==PROCESS=============="
+        log += "==============FINISH==OF==PROCESS==============\n"
         return retStr
     }
 }
