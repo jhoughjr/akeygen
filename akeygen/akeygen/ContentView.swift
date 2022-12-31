@@ -120,7 +120,8 @@ struct ContentView: View {
     
     func generateKeyFromName() -> String {
         log += "generating key for \"\(fullName)\" with end bytes \(endBytes.map({" \($0) "}))\n"
-
+        log += "===============START==OF==PROCESS=============="
+        log += "===============START==OF==PROCESS=============="
         if validate(fullName) {
             key = String(data:encode(fullName),
                          encoding:.utf8) ?? ""
@@ -176,7 +177,14 @@ struct ContentView: View {
         retStr += fullNameStr
         retStr += String(checkSumPart2)
         retStr += String(checksumName)
-        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 3))
+        print("Before the formating: \(retStr)")
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 6))
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 15))
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 23))
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 31))
+        retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 36))
+        print("After the formating: \(retStr)")
+        log += "==============FINISH==OF==PROCESS=============="
         return retStr
     }
 }
