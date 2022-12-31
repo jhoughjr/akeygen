@@ -4,8 +4,8 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Minecraft-Bold</string>
 		<string>Minecraft.otf</string>
-		<string>Minecraft-bold.otf</string>
 	</array>
 </dict>
 </plist>
