@@ -15,7 +15,7 @@ struct LegacyVerView: View {
             HostingWindowFinder { window in
                         window?.standardWindowButton(.zoomButton)?.isEnabled = false //this disables the green zoom button
                     }
-            Text("For users that use the verion 05-04 you need a key that\n is actually hard coded and you were\n supposed to ask dev0\n for it but since the server is non-functional\n here is the code:")
+            Text("For users that use the version 05-04 you need a key that\n is actually hard coded and you were\n supposed to ask dev0\n for it but since the server is non-functional\n here is the code:")
                 .font(.custom("Minecraft", size: 15))
         }
         GroupBox(label:
