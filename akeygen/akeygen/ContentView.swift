@@ -2,10 +2,11 @@
 //  ContentView.swift
 //  akeygen
 //
-//  Created by Jimmy Hough Jr on 12/28/22.
+//  Created by Jimmy Hough Jr and Alex Vysokai on 12/28/22.
 //
 
 import SwiftUI
+import JavaScriptCore
 
 struct ContentView: View {
     @State var fullName = ""
@@ -37,8 +38,7 @@ struct ContentView: View {
                     if sel1.ver == 2 {
                         key = generateKeyFromName()
                     } else if sel1.ver == 1 {
-                        key = "0"
-                        log += "NOT FINNISHED\n"
+                        key = OGGen()
                     }
                     
                 } else if isOK == false {
@@ -212,6 +212,22 @@ struct ContentView: View {
         retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 36))
         print("After the formating: \(retStr)")
         log += "==============FINISH==OF==PROCESS==============\n"
+        return retStr
+    }
+    func OGGen() -> String {
+        var retStr: String
+        log += "Extracting code from file avkeys.js\n"
+        let filepath = Bundle.main.path(forResource: "avkeys", ofType: "js")
+        let script = try! String(contentsOfFile: filepath!)
+        log += "Starting a JS virtual machine..."
+        let context = JSContext()
+        log += "Done!\n"
+        log += "Loading the JS script into the VM\n"
+        context?.evaluateScript(script)
+        let vec = context?.objectForKeyedSubscript("GenerateKeyForName")
+        log += "Calling function with the name of : \(fullName)"
+        let result = vec?.call(withArguments: [fullName])
+        retStr = (result?.toString())!
         return retStr
     }
 }
