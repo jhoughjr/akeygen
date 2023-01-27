@@ -10,7 +10,6 @@ import AppKit
 @main
 struct akeygenApp: App {
     @State var log: String = ""
-    @State var ver: Int = 2
     var body: some Scene {
         WindowGroup {
             ContentView()
