@@ -12,12 +12,12 @@ struct akeygenApp: App {
     @State var log: String = ""
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(log: $log)
         }
-//        Window("Log", id: "logs") {
-//            @Binding var log:String
-//            LogUI(log: $log) TODO: IMPLEMENT THIS SOMEHOW
-//        }
+        Window("Log", id: "logs") {
+            LogUI(log: $log)
+        }
+        .defaultPosition(.bottom)
         Window("OldVer", id: "legacy") {
             LegacyVerView()
         }

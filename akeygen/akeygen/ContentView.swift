@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var fullName = ""
     @State var key = ""
     @State var endBytes =  [39, 86, 26, 72, 13, 91, 23];
-    @State var log: String = ""
+    @Binding var log: String
     @State private var incompat = false
     @ObservedObject var sel1 = Preferences.shared
     @Environment (\.openWindow) var OpenWindow
@@ -28,7 +28,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
                 .onTapGesture {
-//                    OpenWindow(id: "logs") TODO: IMPLEMENT THIS SOMEHOW
+                     OpenWindow(id: "logs")
                 }
             nameView
             endBytesView
