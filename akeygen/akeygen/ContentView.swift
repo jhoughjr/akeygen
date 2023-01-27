@@ -2,10 +2,11 @@
 //  ContentView.swift
 //  akeygen
 //
-//  Created by Jimmy Hough Jr on 12/28/22.
+//  Created by Jimmy Hough Jr and Alex Vysokai on 12/28/22.
 //
 
 import SwiftUI
+import JavaScriptCore
 
 struct ContentView: View {
     @State var fullName = ""
@@ -13,6 +14,7 @@ struct ContentView: View {
     @State var endBytes =  [39, 86, 26, 72, 13, 91, 23];
     @State var log: String = ""
     @State private var incompat = false
+    @ObservedObject var sel1 = Preferences.shared
     @Environment (\.openWindow) var OpenWindow
     
     var body: some View {
@@ -33,23 +35,31 @@ struct ContentView: View {
             Button {
                 let isOK:Bool = validateDEV(fullName)
                 if isOK == true {
-                    key = generateKeyFromName()
+                    if sel1.ver == 2 {
+                        key = generateKeyFromName()
+                    } else if sel1.ver == 1 {
+                        key = OGGen()
+                    }
+                    
                 } else if isOK == false {
                     incompat = true
                 }
             } label: {
                 Text("Generate Key")
             }
-            .alert("Important message", isPresented: $incompat) {
+            .alert("The name you typed is potencially incompatible as it uses an internal format", isPresented: $incompat) {
                 Button("STOP", role: .cancel) {
                     log += "ERR: PROCESS STOPPED BY FORCE\n"
                 }
                 Button("CONTINUE", role: .destructive) {
                     log += "Continuing process\n"
+                    log += "***********************************************************"
+                    log += "\nWARNING: WE ARE NOT RESPONSIBLE IN ANY BANS!!!!\n"
+                    log += "***********************************************************\n"
                     key = generateKeyFromName()
                 }
                     }
-            TextField("key", text: $key)
+            TextField("Key", text: $key)
             
             LogUI(log: $log)
         }
@@ -83,6 +93,34 @@ struct ContentView: View {
     func validateDEV(_ str:String) -> Bool {
         log += "Checking for possible internal incompatibilities... "
         let mickey = str.lowercased()
+//        ⠀⠀⠀⠀⠀⢀⣠⣴⣶⣿⣿⣿⣿⣶⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣶⣿⣿⣿⣿⣿⣿⣶⣦⣄⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀
+//        ⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀
+//        ⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀
+//        ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+//        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+//        ⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣠⣴⡶⠾⠛⠻⠿⣿⣿⣿⣿⣿⠿⠿⢶⣦⣤⡘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+//        ⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠋⠀⠀⠀⠀⠀⠀⠈⢻⡿⠋⠀⠀⠀⠀⠀⠉⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+//        ⠀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀
+//        ⠀⠀⠀⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⣠⢤⣄⠀⠀⠀⠀⣀⣤⣄⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀
+//        ⠀⠀⠀⠀⠀⠀⠉⠛⠛⠿⠿⠿⠛⣻⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⡾⠁⠀⠸⡆⠀⠀⣰⠋⠀⠘⡆⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⢸⠇⠀⠀⠀⣷⠀⢠⡇⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣯⠉⠙⠛⠛⠋⠉⠁⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⢹⠀⢸⠁⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⢸⡀⠀⣤⣄⣼⠀⣿⣠⣤⠀⠀⡟⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠸⡇⢸⣿⣿⡿⠀⣿⣿⣿⠇⢰⠃⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⢻⣼⣿⣿⡷⠶⠿⢿⣿⣴⡃⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡿⠟⠋⠉⠉⠉⠁⠀⠀⠀⠀⠒⠉⣁⣤⣤⣴⣶⣦⣤⣄⡈⠉⠂⠀⠀⠀⠀⠉⠉⠉⠙⠻⢿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⣀⣀⡀⠀⠀⠀⠹⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀⢀⣴⣟⠉⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠉⣽⢷⡀⠀⠀⢻⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠜⠁⠙⣦⡀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⣿⣿⠿⠟⠋⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠑⠀⠀⣼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠀⠀⠀⠀⠈⠳⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡴⠟⠁⠀⠀⠀⠀⠀⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⡀⠀⠀⠀⠀⠀⠘⢿⣶⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣴⣾⠟⠀⠀⠀⠀⠀⠀⠀⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣦⡀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣷⣶⣶⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢶⣄⡀⠀⠀⠀⠻⣿⣿⠿⠛⠛⠻⣿⣿⡿⠿⣿⣿⠋⠀⠀⠀⠀⢀⣤⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠷⣦⣜⣦⡙⢧⡀⠀⠀⠞⠉⠀⠀⢀⠜⢁⡴⣃⣠⡴⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠻⣦⡙⠲⠦⠤⠤⠶⠚⣁⡴⠟⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠳⢦⣤⣤⡶⠾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
         if mickey.prefix(3) == "dev" {
            log += "ERROR!! ALERT DISPLAY\n"
            return false
@@ -92,20 +130,20 @@ struct ContentView: View {
         }
     }
     func validateLength(_ name:String) -> Bool {
-        log += "validating length of\"\(name)\"\n"
+        log += "validating length of \"\(name)\"\n"
 
         let isValid = name.count < 15 && !name.isEmpty
         if isValid {
-            log += "length of\"\(name)\" is valid.\n"
+            log += "length of \"\(name)\" is valid.\n"
             return true
         }else {
-            log += "length of\"\(name)\" is NOT valid.\n"
+            log += "length of \"\(name)\" is NOT valid.\n"
             return false
         }
     }
     
     func validateCharset(_ name:String) -> Bool {
-        log += "validating charset of\"\(name)\"\n"
+        log += "validating charset of \"\(name)\"\n"
 
         let r = 65...90
         
@@ -113,12 +151,12 @@ struct ContentView: View {
             r.contains(Int(c.asciiValue!))
         }
         if isValid {
-            log += "charset of\"\(name)\" is valid. \n"
+            log += "charset of \"\(name)\" is valid. \n"
 
             return true
         }
         else {
-            log += "charset of\"\(name)\" is NOT valid. \n"
+            log += "charset of \"\(name)\" is NOT valid. \n"
 
             return false
         }
@@ -205,6 +243,22 @@ struct ContentView: View {
         retStr.insert("-", at: retStr.index(retStr.startIndex, offsetBy: 36))
         print("After the formating: \(retStr)")
         log += "==============FINISH==OF==PROCESS==============\n"
+        return retStr
+    }
+    func OGGen() -> String {
+        var retStr: String
+        log += "Extracting code from file avkeys.js\n"
+        let filepath = Bundle.main.path(forResource: "avkeys", ofType: "js")
+        let script = try! String(contentsOfFile: filepath!)
+        log += "Starting a JS virtual machine..."
+        let context = JSContext()
+        log += "Done!\n"
+        log += "Loading the JS script into the VM\n"
+        context?.evaluateScript(script)
+        let vec = context?.objectForKeyedSubscript("GenerateKeyForName")
+        log += "Calling function with the name of : \(fullName)"
+        let result = vec?.call(withArguments: [fullName])
+        retStr = (result?.toString())!
         return retStr
     }
 }
