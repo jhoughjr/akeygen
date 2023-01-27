@@ -47,16 +47,19 @@ struct ContentView: View {
             } label: {
                 Text("Generate Key")
             }
-            .alert("Important message", isPresented: $incompat) {
+            .alert("The name you typed is potencially incompatible as it uses an internal format", isPresented: $incompat) {
                 Button("STOP", role: .cancel) {
                     log += "ERR: PROCESS STOPPED BY FORCE\n"
                 }
                 Button("CONTINUE", role: .destructive) {
                     log += "Continuing process\n"
+                    log += "***********************************************************"
+                    log += "\nWARNING: WE ARE NOT RESPONSIBLE IN ANY BANS!!!!\n"
+                    log += "***********************************************************\n"
                     key = generateKeyFromName()
                 }
                     }
-            TextField("key", text: $key)
+            TextField("Key", text: $key)
             
             LogUI(log: $log)
         }
@@ -90,6 +93,34 @@ struct ContentView: View {
     func validateDEV(_ str:String) -> Bool {
         log += "Checking for possible internal incompatibilities... "
         let mickey = str.lowercased()
+//        ⠀⠀⠀⠀⠀⢀⣠⣴⣶⣿⣿⣿⣿⣶⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣶⣿⣿⣿⣿⣿⣿⣶⣦⣄⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀
+//        ⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀
+//        ⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀
+//        ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+//        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+//        ⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣠⣴⡶⠾⠛⠻⠿⣿⣿⣿⣿⣿⠿⠿⢶⣦⣤⡘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+//        ⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠋⠀⠀⠀⠀⠀⠀⠈⢻⡿⠋⠀⠀⠀⠀⠀⠉⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+//        ⠀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀
+//        ⠀⠀⠀⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⣠⢤⣄⠀⠀⠀⠀⣀⣤⣄⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀
+//        ⠀⠀⠀⠀⠀⠀⠉⠛⠛⠿⠿⠿⠛⣻⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⡾⠁⠀⠸⡆⠀⠀⣰⠋⠀⠘⡆⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⢸⠇⠀⠀⠀⣷⠀⢠⡇⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣯⠉⠙⠛⠛⠋⠉⠁⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⢹⠀⢸⠁⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⢸⡀⠀⣤⣄⣼⠀⣿⣠⣤⠀⠀⡟⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠸⡇⢸⣿⣿⡿⠀⣿⣿⣿⠇⢰⠃⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⢻⣼⣿⣿⡷⠶⠿⢿⣿⣴⡃⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡿⠟⠋⠉⠉⠉⠁⠀⠀⠀⠀⠒⠉⣁⣤⣤⣴⣶⣦⣤⣄⡈⠉⠂⠀⠀⠀⠀⠉⠉⠉⠙⠻⢿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⣀⣀⡀⠀⠀⠀⠹⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀⢀⣴⣟⠉⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠉⣽⢷⡀⠀⠀⢻⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠜⠁⠙⣦⡀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⣿⣿⠿⠟⠋⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠑⠀⠀⣼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠀⠀⠀⠀⠈⠳⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡴⠟⠁⠀⠀⠀⠀⠀⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⡀⠀⠀⠀⠀⠀⠘⢿⣶⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣴⣾⠟⠀⠀⠀⠀⠀⠀⠀⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣦⡀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣷⣶⣶⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢶⣄⡀⠀⠀⠀⠻⣿⣿⠿⠛⠛⠻⣿⣿⡿⠿⣿⣿⠋⠀⠀⠀⠀⢀⣤⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠷⣦⣜⣦⡙⢧⡀⠀⠀⠞⠉⠀⠀⢀⠜⢁⡴⣃⣠⡴⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠻⣦⡙⠲⠦⠤⠤⠶⠚⣁⡴⠟⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠳⢦⣤⣤⡶⠾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
         if mickey.prefix(3) == "dev" {
            log += "ERROR!! ALERT DISPLAY\n"
            return false
@@ -99,20 +130,20 @@ struct ContentView: View {
         }
     }
     func validateLength(_ name:String) -> Bool {
-        log += "validating length of\"\(name)\"\n"
+        log += "validating length of \"\(name)\"\n"
 
         let isValid = name.count < 15 && !name.isEmpty
         if isValid {
-            log += "length of\"\(name)\" is valid.\n"
+            log += "length of \"\(name)\" is valid.\n"
             return true
         }else {
-            log += "length of\"\(name)\" is NOT valid.\n"
+            log += "length of \"\(name)\" is NOT valid.\n"
             return false
         }
     }
     
     func validateCharset(_ name:String) -> Bool {
-        log += "validating charset of\"\(name)\"\n"
+        log += "validating charset of \"\(name)\"\n"
 
         let r = 65...90
         
@@ -120,12 +151,12 @@ struct ContentView: View {
             r.contains(Int(c.asciiValue!))
         }
         if isValid {
-            log += "charset of\"\(name)\" is valid. \n"
+            log += "charset of \"\(name)\" is valid. \n"
 
             return true
         }
         else {
-            log += "charset of\"\(name)\" is NOT valid. \n"
+            log += "charset of \"\(name)\" is NOT valid. \n"
 
             return false
         }
