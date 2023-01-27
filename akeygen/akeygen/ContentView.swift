@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var endBytes =  [39, 86, 26, 72, 13, 91, 23];
     @State var log: String = ""
     @State private var incompat = false
+    @ObservedObject var sel1 = Preferences.shared
     @Environment (\.openWindow) var OpenWindow
     
     var body: some View {
@@ -33,7 +34,13 @@ struct ContentView: View {
             Button {
                 let isOK:Bool = validateDEV(fullName)
                 if isOK == true {
-                    key = generateKeyFromName()
+                    if sel1.ver == 2 {
+                        key = generateKeyFromName()
+                    } else if sel1.ver == 1 {
+                        key = "0"
+                        log += "NOT FINNISHED\n"
+                    }
+                    
                 } else if isOK == false {
                     incompat = true
                 }
