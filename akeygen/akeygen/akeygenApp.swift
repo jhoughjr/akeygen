@@ -2,7 +2,7 @@
 //  akeygenApp.swift
 //  akeygen
 //
-//  Created by Jimmy Hough Jr on 12/28/22.
+//  Created by Jimmy Hough Jr and Alex Vysokai on 12/28/22.
 //
 
 import SwiftUI
