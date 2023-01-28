@@ -2,7 +2,7 @@
 //  akeygenApp.swift
 //  akeygen
 //
-//  Created by Jimmy Hough Jr on 12/28/22.
+//  Created by Jimmy Hough Jr and Alex Vysokai on 12/28/22.
 //
 
 import SwiftUI
@@ -10,15 +10,14 @@ import AppKit
 @main
 struct akeygenApp: App {
     @State var log: String = ""
-    @State var ver: Int = 2
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(log: $log)
         }
-//        Window("Log", id: "logs") {
-//            @Binding var log:String
-//            LogUI(log: $log) TODO: IMPLEMENT THIS SOMEHOW
-//        }
+        Window("Log", id: "logs") {
+            LogUI(log: $log)
+        }
+        .defaultPosition(.bottom)
         Window("OldVer", id: "legacy") {
             LegacyVerView()
         }
