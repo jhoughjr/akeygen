@@ -60,8 +60,7 @@ struct ContentView: View {
                 }
                     }
             TextField("Key", text: $key)
-            
-            LogUI(log: $log)
+            Spacer()
         }
         .padding()
     }

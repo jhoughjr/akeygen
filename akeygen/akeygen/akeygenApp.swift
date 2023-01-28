@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import AppKit
 @main
 struct akeygenApp: App {
     @State var log: String = ""
@@ -17,6 +16,7 @@ struct akeygenApp: App {
         Window("Log", id: "logs") {
             LogUI(log: $log)
         }
+        .keyboardShortcut("l", modifiers: .command)
         .defaultPosition(.bottom)
         Window("OldVer", id: "legacy") {
             LegacyVerView()
