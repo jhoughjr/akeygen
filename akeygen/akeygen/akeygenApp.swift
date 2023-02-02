@@ -14,12 +14,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var aboutBoxWindowController: NSWindowController?
     func showAbout() {
         if aboutBoxWindowController == nil {
-                   let styleMask: NSWindow.StyleMask = [.closable, .miniaturizable,/* .resizable,*/ .titled]
-                   let window = NSWindow()
-                   window.styleMask = styleMask
-                   window.title = "About My App"
-                   window.contentView = NSHostingView(rootView: AboutView())
-                   aboutBoxWindowController = NSWindowController(window: window)
+            let styleMask: NSWindow.StyleMask = [.closable, .miniaturizable, .resizable, .titled, .utilityWindow]
+                        let window = NSWindow()
+                        window.styleMask = styleMask
+                        window.title = "About My App"
+            let visualEffect = NSVisualEffectView()
+            visualEffect.blendingMode = .behindWindow
+            visualEffect.state = .active
+            visualEffect.material = .menu
+            
+            let hosting = NSHostingView(rootView: AboutView())
+            
+            window.contentView = visualEffect
+            visualEffect.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            visualEffect.addSubview(hosting)
+            hosting.autoresizingMask = [.width, .height]
+            
+                aboutBoxWindowController = NSWindowController(window: window)
                }
 
                aboutBoxWindowController?.showWindow(aboutBoxWindowController?.window)
