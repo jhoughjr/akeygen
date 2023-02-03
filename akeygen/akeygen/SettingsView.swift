@@ -17,6 +17,7 @@ struct SettingsView: View {
             Text("JavaScript Ver").tag(1)
             Text("Swift Ver").tag(2)
         }
+        
         .pickerStyle(.menu)
     }
 }

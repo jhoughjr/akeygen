@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45AEBF3E298C4B4700B1E3E5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AEBF3D298C4B4700B1E3E5 /* AboutView.swift */; };
 		45C07B1629840EF100EEF95D /* avkeys.js in Resources */ = {isa = PBXBuildFile; fileRef = 45C07B1529840EF100EEF95D /* avkeys.js */; };
 		45C07B1829840FF900EEF95D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C07B1729840FF900EEF95D /* SettingsView.swift */; };
 		45C38212295D95DE005EE226 /* LogUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C38211295D95DE005EE226 /* LogUI.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45AEBF3D298C4B4700B1E3E5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		45C07B1529840EF100EEF95D /* avkeys.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = avkeys.js; sourceTree = "<group>"; };
 		45C07B1729840FF900EEF95D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		45C38211295D95DE005EE226 /* LogUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogUI.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				45C38211295D95DE005EE226 /* LogUI.swift */,
 				45C38215295DAE0D005EE226 /* LegacyVerView.swift */,
 				45C07B1729840FF900EEF95D /* SettingsView.swift */,
+				45AEBF3D298C4B4700B1E3E5 /* AboutView.swift */,
 				D8C8DDA0295CE3AE00B1DD9E /* Assets.xcassets */,
 				D8C8DDA5295CE3AE00B1DD9E /* akeygen.entitlements */,
 				D8C8DDA2295CE3AE00B1DD9E /* Preview Content */,
@@ -292,6 +295,7 @@
 				D8C8DD9F295CE3AD00B1DD9E /* ContentView.swift in Sources */,
 				45C38212295D95DE005EE226 /* LogUI.swift in Sources */,
 				D8C8DD9D295CE3AD00B1DD9E /* akeygenApp.swift in Sources */,
+				45AEBF3E298C4B4700B1E3E5 /* AboutView.swift in Sources */,
 				45C38216295DAE0D005EE226 /* LegacyVerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,11 +19,6 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Button {
-                OpenWindow(id: "legacy")
-            } label: {
-                Text("Legacy")
-            }
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
@@ -54,12 +49,18 @@ struct ContentView: View {
                 Button("CONTINUE", role: .destructive) {
                     log += "Continuing process\n"
                     log += "***********************************************************"
-                    log += "\nWARNING: WE ARE NOT RESPONSIBLE IN ANY BANS!!!!\n"
+                    log += "\nWARNING: WE ARE NOT RESPONSIBLE FOR ANY BANS!!!!\n"
                     log += "***********************************************************\n"
                     key = generateKeyFromName()
                 }
                     }
             TextField("Key", text: $key)
+            Button {
+                OpenWindow(id: "legacy")
+            } label: {
+                Text("Legacy")
+            }
+            .padding()
             Spacer()
         }
         .padding()
@@ -75,11 +76,25 @@ struct ContentView: View {
     var endBytesView: some View {
         VStack {
             Text("End Bytes")
-
             HStack {
-                ForEach(endBytes, id:\.self) { byte in
-                    Text("\(byte)").padding()
-                        .font(.custom("Minecraft-Bold", size: 20))
+                if sel1.ver == 2 {
+                    ForEach(0..<endBytes.count) { index in
+                        Stepper(label: {
+                            Text("\(endBytes[index])").padding()
+                                .font(.custom("Minecraft-Bold", size: 20))
+                        }, onIncrement: {
+                            endBytes[index] += 1
+                        }, onDecrement: {
+                            endBytes[index] -= 1
+                        })
+                        
+                    }
+                } else if sel1.ver == 1 {
+                    ForEach(endBytes, id:\.self) { CrtByte in
+                        Text(String(CrtByte))
+                            .padding()
+                            .font(.custom("Minecraft-bold", size: 20))
+                    }
                 }
             }
         }
@@ -92,34 +107,6 @@ struct ContentView: View {
     func validateDEV(_ str:String) -> Bool {
         log += "Checking for possible internal incompatibilities... "
         let mickey = str.lowercased()
-//        ⠀⠀⠀⠀⠀⢀⣠⣴⣶⣿⣿⣿⣿⣶⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣶⣿⣿⣿⣿⣿⣿⣶⣦⣄⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀
-//        ⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀
-//        ⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀
-//        ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
-//        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-//        ⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣠⣴⡶⠾⠛⠻⠿⣿⣿⣿⣿⣿⠿⠿⢶⣦⣤⡘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-//        ⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠋⠀⠀⠀⠀⠀⠀⠈⢻⡿⠋⠀⠀⠀⠀⠀⠉⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
-//        ⠀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀
-//        ⠀⠀⠀⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⣠⢤⣄⠀⠀⠀⠀⣀⣤⣄⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀
-//        ⠀⠀⠀⠀⠀⠀⠉⠛⠛⠿⠿⠿⠛⣻⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⡾⠁⠀⠸⡆⠀⠀⣰⠋⠀⠘⡆⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⢸⠇⠀⠀⠀⣷⠀⢠⡇⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣯⠉⠙⠛⠛⠋⠉⠁⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⢹⠀⢸⠁⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⢸⡀⠀⣤⣄⣼⠀⣿⣠⣤⠀⠀⡟⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠸⡇⢸⣿⣿⡿⠀⣿⣿⣿⠇⢰⠃⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⢻⣼⣿⣿⡷⠶⠿⢿⣿⣴⡃⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡿⠟⠋⠉⠉⠉⠁⠀⠀⠀⠀⠒⠉⣁⣤⣤⣴⣶⣦⣤⣄⡈⠉⠂⠀⠀⠀⠀⠉⠉⠉⠙⠻⢿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⣀⣀⡀⠀⠀⠀⠹⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀⢀⣴⣟⠉⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠉⣽⢷⡀⠀⠀⢻⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠜⠁⠙⣦⡀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⣿⣿⠿⠟⠋⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠑⠀⠀⣼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠀⠀⠀⠀⠈⠳⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡴⠟⠁⠀⠀⠀⠀⠀⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⡀⠀⠀⠀⠀⠀⠘⢿⣶⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣴⣾⠟⠀⠀⠀⠀⠀⠀⠀⣠⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣦⡀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣷⣶⣶⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢶⣄⡀⠀⠀⠀⠻⣿⣿⠿⠛⠛⠻⣿⣿⡿⠿⣿⣿⠋⠀⠀⠀⠀⢀⣤⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠷⣦⣜⣦⡙⢧⡀⠀⠀⠞⠉⠀⠀⢀⠜⢁⡴⣃⣠⡴⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠻⣦⡙⠲⠦⠤⠤⠶⠚⣁⡴⠟⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠳⢦⣤⣤⡶⠾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
         if mickey.prefix(3) == "dev" {
            log += "ERROR!! ALERT DISPLAY\n"
            return false
@@ -255,7 +242,7 @@ struct ContentView: View {
         log += "Loading the JS script into the VM\n"
         context?.evaluateScript(script)
         let vec = context?.objectForKeyedSubscript("GenerateKeyForName")
-        log += "Calling function with the name of : \(fullName)"
+        log += "Calling function with the name of : \(fullName)\n"
         let result = vec?.call(withArguments: [fullName])
         retStr = (result?.toString())!
         return retStr
