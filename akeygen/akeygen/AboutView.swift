@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AboutView: View {
-    @State private var CrtY: Int = 0
     var body: some View {
         VStack {
             Image("AppNFO")
@@ -17,13 +16,7 @@ struct AboutView: View {
             Divider()
             Text("Made by Gladosator and Jimmy")
                 .font(.custom("Minecraft", size: 15))
-            Text("© Alex Vysokai \(String(format:"%04d",CrtY)), All rights reserved")
-        }
-        .onAppear() {
-            let calendar = Calendar.current
-            CrtY = calendar.component(.year, from: Date())
-
-
+            Text("© Alex Vysokai \(String(format:"%04d",Calendar(identifier: .gregorian).dateComponents([.year], from: .now).year!)), All rights reserved")
         }
         .frame(minWidth: 400, minHeight: 400)
     }
