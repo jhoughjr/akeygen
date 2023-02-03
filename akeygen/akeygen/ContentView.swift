@@ -28,8 +28,7 @@ struct ContentView: View {
             nameView
             endBytesView
             Button {
-                let isOK:Bool = validateDEV(fullName)
-                if isOK == true {
+                if validateDEV(fullName) == true {
                     if sel1.ver == 2 {
                         key = generateKeyFromName()
                     } else if sel1.ver == 1 {
