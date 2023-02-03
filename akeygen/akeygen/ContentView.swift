@@ -49,7 +49,7 @@ struct ContentView: View {
                 Button("CONTINUE", role: .destructive) {
                     log += "Continuing process\n"
                     log += "***********************************************************"
-                    log += "\nWARNING: WE ARE NOT RESPONSIBLE IN ANY BANS!!!!\n"
+                    log += "\nWARNING: WE ARE NOT RESPONSIBLE FOR ANY BANS!!!!\n"
                     log += "***********************************************************\n"
                     key = generateKeyFromName()
                 }
