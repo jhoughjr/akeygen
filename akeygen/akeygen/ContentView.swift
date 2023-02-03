@@ -28,14 +28,14 @@ struct ContentView: View {
             nameView
             endBytesView
             Button {
-                if validateDEV(fullName) == true {
+                if validateDEV(fullName) {
                     if sel1.ver == 2 {
                         key = generateKeyFromName()
                     } else if sel1.ver == 1 {
                         key = OGGen()
                     }
                     
-                } else if isOK == false {
+                } else {
                     incompat = true
                 }
             } label: {
@@ -116,9 +116,7 @@ struct ContentView: View {
     }
     func validateLength(_ name:String) -> Bool {
         log += "validating length of \"\(name)\"\n"
-
-        let isValid = name.count < 15 && !name.isEmpty
-        if isValid {
+        if name.count < 15 && !name.isEmpty {
             log += "length of \"\(name)\" is valid.\n"
             return true
         }else {
@@ -131,8 +129,9 @@ struct ContentView: View {
         log += "validating charset of \"\(name)\"\n"
 
         let r = 65...90
+        let fix = name.uppercased()
         
-        let isValid = name.allSatisfy { c in
+        let isValid = fix.allSatisfy { c in
             r.contains(Int(c.asciiValue!))
         }
         if isValid {
@@ -171,6 +170,11 @@ struct ContentView: View {
         if validate(fullName) {
             key = String(data:encode(fullName),
                          encoding:.utf8) ?? ""
+        } else {
+            for _ in 1 ... 550 {
+                log += "#"
+            }
+            return "#"
         }
         let name:String = fullName.uppercased()
         if name.count >= 15 {

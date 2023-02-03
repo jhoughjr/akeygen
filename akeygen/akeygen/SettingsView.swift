@@ -14,8 +14,8 @@ struct SettingsView: View {
     @ObservedObject var sel1 = Preferences.shared
     var body: some View {
         Picker(selection: $sel1.ver, label: Text("Version Select")) {
-            Text("JavaScript Ver").tag(1)
-            Text("Swift Ver").tag(2)
+            Text("JavaScript Ver.").tag(1)
+            Text("Swift Ver.").tag(2)
         }
         
         .pickerStyle(.menu)
