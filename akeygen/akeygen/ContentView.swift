@@ -19,11 +19,6 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Button {
-                OpenWindow(id: "legacy")
-            } label: {
-                Text("Legacy")
-            }
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
@@ -60,6 +55,12 @@ struct ContentView: View {
                 }
                     }
             TextField("Key", text: $key)
+            Button {
+                OpenWindow(id: "legacy")
+            } label: {
+                Text("Legacy")
+            }
+            .padding()
             Spacer()
         }
         .padding()
