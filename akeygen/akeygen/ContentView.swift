@@ -242,7 +242,7 @@ struct ContentView: View {
         log += "Loading the JS script into the VM\n"
         context?.evaluateScript(script)
         let vec = context?.objectForKeyedSubscript("GenerateKeyForName")
-        log += "Calling function with the name of : \(fullName)"
+        log += "Calling function with the name of : \(fullName)\n"
         let result = vec?.call(withArguments: [fullName])
         retStr = (result?.toString())!
         return retStr
