@@ -75,11 +75,25 @@ struct ContentView: View {
     var endBytesView: some View {
         VStack {
             Text("End Bytes")
-
             HStack {
-                ForEach(endBytes, id:\.self) { byte in
-                    Text("\(byte)").padding()
-                        .font(.custom("Minecraft-Bold", size: 20))
+                if sel1.ver == 2 {
+                    ForEach(0..<endBytes.count) { index in
+                        Stepper(label: {
+                            Text("\(endBytes[index])").padding()
+                                .font(.custom("Minecraft-Bold", size: 20))
+                        }, onIncrement: {
+                            endBytes[index] += 1
+                        }, onDecrement: {
+                            endBytes[index] -= 1
+                        })
+                        
+                    }
+                } else if sel1.ver == 1 {
+                    ForEach(endBytes, id:\.self) { CrtByte in
+                        Text(String(CrtByte))
+                            .padding()
+                            .font(.custom("Minecraft-bold", size: 20))
+                    }
                 }
             }
         }
